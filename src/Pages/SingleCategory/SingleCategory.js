@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import BookingModal from '../BookingModal/BookingModal';
 import SingleBook from '../SingleBook/SingleBook';
 
 const SingleCategory = () => {
+    const [selectBook, setSelectBook] = useState(null);
     const books = useLoaderData();
     console.log(books)
     return (
@@ -17,12 +19,21 @@ const SingleCategory = () => {
                     //     ></SingleBook>
                     // })
 
-                    books.map(book =><SingleBook
+                    books.map(book => <SingleBook
                         key={book._id}
-                            book={book}></SingleBook>
-                        )
+                        book={book}
+                        setSelectBook={setSelectBook}
+                    ></SingleBook>
+                    )
                 }
             </div>
+            {
+                selectBook &&
+                <BookingModal
+                    selectBook={selectBook}
+                    setSelectBook={setSelectBook}
+                ></BookingModal>
+            }
         </div>
     );
 };
