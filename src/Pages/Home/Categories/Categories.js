@@ -5,7 +5,7 @@ const Categories = () => {
     const [allCategories, setAllCategories] = useState([])
 
     useEffect( () =>{
-        fetch('allCategories.json')
+        fetch('http://localhost:5000/allCategories')
         .then(res => res.json())
         .then(data =>setAllCategories(data))
     } ,[])
