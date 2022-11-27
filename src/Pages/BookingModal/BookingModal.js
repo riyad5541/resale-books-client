@@ -7,7 +7,7 @@ const BookingModal = ({ selectBook, setSelectBook }) => {
     const {user} = useContext(AuthContext);
     // console.log(user)
 
-    const { title ,resaleprice, location, mobileNum} = selectBook;
+    const { title ,resaleprice, location, mobileNum, img} = selectBook;
       
     const handleBooking = event => {
         event.preventDefault();
@@ -20,7 +20,7 @@ const BookingModal = ({ selectBook, setSelectBook }) => {
         const name = form.name.value;
 
         // console.log(phone,location,email,title,price);
-        const booking = {phone,location,email,title,price,name}
+        const booking = {phone,location,email,title,price,name,img}
         console.log(booking)
 
         // fetch('http://localhost:5000/bookings')
