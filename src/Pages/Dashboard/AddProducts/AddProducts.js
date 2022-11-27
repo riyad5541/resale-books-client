@@ -57,29 +57,29 @@ const AddProducts = () => {
                     {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                 </div>
                 <div className="form-control w-full max-w-xs">
-                    <label className="label"> <span className="label-text">Name</span></label>
-                    <input type="text" {...register("name", {
+                    <label className="label"> <span className="label-text">Price</span></label>
+                    <input type="text" {...register("price", {
                         required: "Name is Required"
                     })} className="input input-bordered w-full max-w-xs" />
                     {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                 </div>
                 <div className="form-control w-full max-w-xs">
-                    <label className="label"> <span className="label-text">Name</span></label>
-                    <input type="text" {...register("name", {
+                    <label className="label"> <span className="label-text">Condition</span></label>
+                    <input type="text" {...register("condition", {
                         required: "Name is Required"
                     })} className="input input-bordered w-full max-w-xs" />
                     {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                 </div>
                 <div className="form-control w-full max-w-xs">
-                    <label className="label"> <span className="label-text">Name</span></label>
-                    <input type="text" {...register("name", {
+                    <label className="label"> <span className="label-text">Mobile Number</span></label>
+                    <input type="text" {...register("mobilenumber", {
                         required: "Name is Required"
                     })} className="input input-bordered w-full max-w-xs" />
                     {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                 </div>
                 <div className="form-control w-full max-w-xs">
-                    <label className="label"> <span className="label-text">Name</span></label>
-                    <input type="text" {...register("name", {
+                    <label className="label"> <span className="label-text">Location</span></label>
+                    <input type="text" {...register("location", {
                         required: "Name is Required"
                     })} className="input input-bordered w-full max-w-xs" />
                     {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
