@@ -1,5 +1,5 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const CheckoutFrom = ({ booking }) => {
     const [cardError, setCardError] = useState('');
@@ -10,7 +10,22 @@ const CheckoutFrom = ({ booking }) => {
 
     const stripe = useStripe();
     const elements = useElements();
-    const { price, email, patient, _id } = booking;
+    const { price, email, name, _id } = booking;
+
+
+    useEffect(() => {
+        // Create PaymentIntent as soon as the page loads
+        fetch("http://localhost:5000/create-payment-intent", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify({ price }),
+        })
+            .then((res) => res.json())
+            .then((data) => setClientSecret(data.clientSecret));
+    }, [price]);
 
 
     const handleSubmit = async (event) => {
@@ -45,7 +60,7 @@ const CheckoutFrom = ({ booking }) => {
                 payment_method: {
                     card: card,
                     billing_details: {
-                        name: patient,
+                        name: name,
                         email: email
                     },
                 },
@@ -65,7 +80,7 @@ const CheckoutFrom = ({ booking }) => {
                 email,
                 bookingId: _id
             }
-            fetch('https://doctors-portal-server-rust.vercel.app/payments', {
+            fetch('http://localhost:5000/payments', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
