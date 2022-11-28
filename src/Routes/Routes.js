@@ -12,6 +12,7 @@ import Payment from "../Pages/Dashboard/Payment/Payment";
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Login/Signup";
+import ErrorPage from "../Pages/Shared/ErrorPage/ErrorPage";
 import SingleCategory from "../Pages/SingleCategory/SingleCategory";
 import AdminRoute from "./AdminRoute/AdminRoute";
 import PrivateRoute from "./Routes/PrivateRoute/PrivateRoute";
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: <Main></Main>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/',
