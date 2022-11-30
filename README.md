@@ -1,6 +1,16 @@
-# Getting Started with Create React App
+#This website is about Resale books 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Live website link:https://resale-books-e0584.web.app
+
+## In this website i use many features and functionalities. Thos are:
+
+### For degin i use tailwind,dasiy ui
+
+### I also use react react-router-don
+
+### For server MongoDB,express.
+
+### Use React hot toast for notifications
 
 ## Available Scripts
 
