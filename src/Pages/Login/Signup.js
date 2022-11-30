@@ -4,11 +4,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { AuthContext } from "../../contexts/AuthProvider";
 import useToken from "../../hooks/useToken";
+import { GoogleAuthProvider } from "firebase/auth";
 
 
 const Signup = () => {
+
+    const googleProvider = new GoogleAuthProvider();
+
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser, updateUser } = useContext(AuthContext)
+    const { createUser, updateUser,providerLogin } = useContext(AuthContext)
     const [signUpError, setSignUPError] = useState('');
     const [createdUserEmail, setCreatedUserEmail] = useState('')
     const [token] = useToken(createdUserEmail);
@@ -30,7 +34,8 @@ const Signup = () => {
                 }
                 updateUser(userInfo)
                     .then(() => {
-                        saveUser(data.name, data.email);
+                        console.log(data.name,data.email,data.option)
+                        saveUser(data.name, data.email, data.option);
                     })
                     .catch(err => console.log(err));
             })
@@ -38,10 +43,25 @@ const Signup = () => {
                 console.log(error)
                 setSignUPError(error.message)
             })
-    }
+    };
 
-    const saveUser = (name, email) => {
-        const user = { name, email };
+    const handleGoogleSignIn = () => {
+        providerLogin(googleProvider)
+          .then((result) => {
+            const user = result.user;
+            const googleUser = {
+              name: user.displayName,
+              email: user.email,
+              role: "Buyer",
+            };
+            toast.success("User Created Successfully");
+            saveUser(googleUser.name, googleUser.email, googleUser.role);
+          })
+          .catch((error) => console.log(error));
+      };
+
+    const saveUser = (name, email, role) => {
+        const user = { name, email ,role};
         fetch('http://localhost:5000/users', {
             method: 'POST',
             headers: {
@@ -79,6 +99,17 @@ const Signup = () => {
                             {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
                         </div>
                         <div className="form-control w-full max-w-xs">
+                            <label className="label"> <span className="label-text">Chose an option</span></label>
+                           <select
+                           {...register("option")}
+                           className="select select-borderd w-full max-w-xs"
+                           >
+                            <option value="Buyer">Buyer</option>
+                            <option value="Seller">Seller</option>
+                           </select>
+                           
+                        </div>
+                        <div className="form-control w-full max-w-xs">
                             <label className="label"> <span className="label-text">Password</span></label>
                             <input type="password" {...register("password", {
                                 required: "Password is required",
@@ -92,7 +123,7 @@ const Signup = () => {
                     </form>
                     <p>Already have an account <Link className='text-secondary' to="/login">Please Login</Link></p>
                     <div className="divider">OR</div>
-                    <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                    <button onClick={handleGoogleSignIn} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
 
                 </div>
             </div>
