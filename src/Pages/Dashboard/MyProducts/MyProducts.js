@@ -20,7 +20,7 @@ const MyProducts = () => {
         queryFn: async () => {
             try {
                 const res = await fetch(
-                    "http://localhost:5000/products",
+                    "https://resale-books-server-five.vercel.app/products",
                     {
                         headers: {
                             authorization: `bearer ${ localStorage.getItem("accessToken") }`,
@@ -34,7 +34,7 @@ const MyProducts = () => {
   });
 
 const handleDeleteProduct = (product) => {
-    fetch(`http://localhost:5000/products/${product._id}`,
+    fetch(`https://resale-books-server-five.vercel.app/products/${product._id}`,
         {
             method: "DELETE",
             headers: {

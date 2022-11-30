@@ -14,7 +14,7 @@ const AllBuyers = () => {
     const { data: buyers = [], refetch, isLoading, } = useQuery({
         queryKey: ['buyers', "Buyer"],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/buyers?role=${"Buyer"}`,{
+            const res = await fetch(`https://resale-books-server-five.vercel.app/buyers?role=${"Buyer"}`,{
                 headers:{
                     authorization:`bearer ${localStorage.getItem("accessToken")}`,
                 },
@@ -25,7 +25,7 @@ const AllBuyers = () => {
     });
 
     const handleDeleteBuyer = (buyer) => {
-        fetch(`http://localhost:5000/buyer/${buyer._id}` ,{
+        fetch(`https://resale-books-server-five.vercel.app/buyer/${buyer._id}` ,{
           method: "DELETE",
           headers: {
             authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -41,7 +41,7 @@ const AllBuyers = () => {
       };
 
     const handleMakeAdmin = id => {
-        fetch(`http://localhost:5000/users/admin/${id}`, {
+        fetch(`https://resale-books-server-five.vercel.app/users/admin/${id}`, {
             method: 'PUT', 
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

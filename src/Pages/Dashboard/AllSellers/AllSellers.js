@@ -11,7 +11,7 @@ const AllSellers = () => {
     setDeletingSeller(null);
   };
 
-  const url =`http://localhost:5000/sellers?role=${"Seller"}`;
+  const url =`https://resale-books-server-five.vercel.app/sellers?role=${"Seller"}`;
 
   const {
     data: sellers = [],
@@ -32,7 +32,7 @@ const AllSellers = () => {
 
   const handleDeleteSeller = (seller) => {
     console.log(seller);
-    fetch(`http://localhost:5000/seller/${seller._id}`, {
+    fetch(`https://resale-books-server-five.vercel.app/seller/${seller._id}`, {
       method: "DELETE",
       headers: {
         authorization: `bearer ${localStorage.getItem("accessToken")}`,
@@ -48,7 +48,7 @@ const AllSellers = () => {
   };
 
   const handleMakeAdmin = (id) => {
-    fetch(`http://localhost:5000/users/admin/${id}`, {
+    fetch(`https://resale-books-server-five.vercel.app/users/admin/${id}`, {
       method: "PUT",
       headers: {
         authorization: `bearer ${localStorage.getItem("accessToken")}`,

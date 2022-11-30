@@ -47,7 +47,7 @@ const router = createBrowserRouter([
                 path: '/category/:id',
                 element: <SingleCategory></SingleCategory>,
                 loader:({ params }) =>
-                fetch(`http://localhost:5000/category/${params.id}`)
+                fetch(`https://resale-books-server-five.vercel.app/category/${params.id}`)
             },
            
 
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
             {
                 path:'/dashboard/payment/:id',
                 element:<Payment></Payment>,
-                loader:({params}) => fetch(`http://localhost:5000/bookings/${params.id}`)
+                loader:({params}) => fetch(`https://resale-books-server-five.vercel.app/bookings/${params.id}`)
             },
         ]
     }

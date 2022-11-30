@@ -8,7 +8,7 @@ const Categories = () => {
     const {data:allCategories = []} = useQuery({
         queryKey:['allCategories'],
         queryFn: async() =>{
-            const res = await fetch('http://localhost:5000/allCategories');
+            const res = await fetch('https://resale-books-server-five.vercel.app/allCategories');
             const data = await res.json();
             return data;
         }
