@@ -1,12 +1,15 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
+import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
 
 const Login = () => {
+    const googleProvider = new GoogleAuthProvider();
     const { register, formState: { errors }, handleSubmit } = useForm()
-    const { signIn } = useContext(AuthContext);
+    const { signIn, providerLogin } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const [token] = useToken(loginUserEmail);
@@ -34,7 +37,39 @@ const Login = () => {
                 setLoginError(error.message);
             });
         
+    };
+
+    const handleGoogleSignIn = () => {
+        providerLogin(googleProvider)
+          .then((result) => {
+            const user = result.user;
+            const googleUser = {
+              name: user.displayName,
+              email: user.email,
+              role: "Buyer",
+            };
+            toast.success("User Created Successfully");
+            saveUser(googleUser);
+          })
+          .catch((error) => console.log(error));
+      };
+
+      const saveUser = (googleUser) => {
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(googleUser)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setLoginUserEmail(googleUser.email);
+                // navigate('/');
+                // setCreatedUserEmail(email);
+            })
     }
+
     return (
         <div className='h-[800px] flex justify-center items-center'>
             <div className='w-96 p-7'>
@@ -66,7 +101,7 @@ const Login = () => {
                 </form>
                 <p>New to Resale Books <Link className='text-primary' to="/signup">Create New Account</Link></p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handleGoogleSignIn} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );
