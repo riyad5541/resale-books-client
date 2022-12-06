@@ -2,6 +2,10 @@
 
 # Live website link:https://resale-books-e0584.web.app
 
+# Admin Login Details
+### Email:tisha@gmail.com
+### Password:Tisha5541#
+
 ## In this website i use many features and functionalities. Thos are:
 
 ### For degin i use tailwind,dasiy ui
